@@ -29,12 +29,12 @@
 // server.use(jsonServer.bodyParser);
 
 // // // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-// // server.use(async (req, res, next) => {
-// //   await new Promise((res) => {
-// //     setTimeout(res, 800);
-// //   });
-// //   next();
-// // });
+// server.use(async (req, res, next) => {
+//   await new Promise((res) => {
+//     setTimeout(res, 800);
+//   });
+//   next();
+// });
 
 // server.use(router);
 
@@ -55,6 +55,10 @@ server.use(jsonServer.defaults());
 
 // Returns an Express router
 var router = jsonServer.router("db.json");
+
+server.use(function (req, res, next) {
+  setTimeout(next, 800);
+});
 
 server.use(router);
 
